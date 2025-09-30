@@ -5,6 +5,7 @@ SG_ID="sg-08797edff6c4de0d2" # replace with your SG ID
 ZONE_ID="Z09171802WMG1PN14CHET" # replace with your ID
 DOMAIN_NAME="eswar.xyz"
 
+# shellcheck disable=SC2068
 for instance in $@ # mongodb redis mysql
 do
     INSTANCE_ID=$(aws ec2 run-instances --image-id $AMI_ID --instance-type t3.micro --security-group-ids $SG_ID --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" --query 'Instances[0].InstanceId' --output text)
